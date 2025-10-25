@@ -1,0 +1,9 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: book-service
+
+loan-service:
+  url: ${LOAN_SERVICE_URL:http://localhost:8082}

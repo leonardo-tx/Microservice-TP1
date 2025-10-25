@@ -1,0 +1,23 @@
+services:
+  book-service:
+    build:
+      dockerfile: book-service/Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      LOAN_SERVICE_URL: http://loan-service:8082
+    depends_on:
+      loan-service:
+        condition: service_healthy
+
+  loan-service:
+    build:
+      dockerfile: loan-service/Dockerfile
+    ports:
+      - "8082:8082"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8082/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
