@@ -1,23 +1,36 @@
 services:
+  consul:
+    image: consul:1.15.4
+    ports:
+      - "8500:8500"
+    command: agent -dev -client=0.0.0.0
+    environment:
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_PORT: 8500
+
+  gateway-service:
+    build:
+      dockerfile: gateway-service/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_PORT: 8500
+
   book-service:
     build:
       dockerfile: book-service/Dockerfile
     ports:
       - "8081:8081"
     environment:
-      LOAN_SERVICE_URL: http://loan-service:8082
-    depends_on:
-      loan-service:
-        condition: service_healthy
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_PORT: 8500
 
   loan-service:
     build:
       dockerfile: loan-service/Dockerfile
     ports:
       - "8082:8082"
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8082/actuator/health" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 10s
+    environment:
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_PORT: 8500

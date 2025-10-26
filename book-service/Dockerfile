@@ -2,6 +2,8 @@ FROM maven:4.0.0-rc-4-eclipse-temurin-21 AS build
 
 WORKDIR /build
 
+COPY gateway-service/src gateway-service/src
+COPY gateway-service/pom.xml gateway-service/pom.xml
 COPY book-service/src book-service/src
 COPY book-service/pom.xml book-service/pom.xml
 COPY loan-service/src loan-service/src

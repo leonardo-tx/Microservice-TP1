@@ -46,7 +46,7 @@ public final class Loan {
 
     public LoanStatus verifyStatus() {
         LocalDate now = LocalDate.now();
-        boolean overdue = now.isBefore(dueDate);
+        boolean overdue = now.isAfter(dueDate);
         if (returnedDate != null) {
             return overdue ? LoanStatus.RETURNED_WITH_OVERDUE : LoanStatus.RETURNED;
         }
