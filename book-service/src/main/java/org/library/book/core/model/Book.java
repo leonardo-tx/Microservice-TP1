@@ -10,7 +10,7 @@ public final class Book {
     private final String isbn;
     private final String title;
     private final String author;
-    private final int count;
+    private int count;
 
     public Book(String isbn, String title, String author, int count) {
         this.isbn = Objects.requireNonNull(isbn);
@@ -21,5 +21,16 @@ public final class Book {
             throw new CoreException("book.count.invalid", "The book count cannot be negative.");
         }
         this.count = count;
+    }
+
+    public void decreaseCount() {
+        if (count == 0) {
+            throw new CoreException("book.count.empty", "There are no more books to subtract.");
+        }
+        count -= 1;
+    }
+
+    public void increaseCount() {
+        count += 1;
     }
 }
