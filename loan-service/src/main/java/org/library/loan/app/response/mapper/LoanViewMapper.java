@@ -10,6 +10,7 @@ public class LoanViewMapper {
         return LoanViewDTO.builder()
                 .id(model.getId())
                 .productId(model.getProductId())
+                .productType(model.getProductType())
                 .createdDate(model.getCreatedDate())
                 .dueDate(model.getDueDate())
                 .returnedDate(model.getReturnedDate())

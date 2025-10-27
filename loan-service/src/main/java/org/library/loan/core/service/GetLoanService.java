@@ -15,8 +15,8 @@ public class GetLoanService implements GetLoanUseCase {
     private final FindLoanPort findLoanPort;
 
     @Override
-    public Loan getLoanById(UUID id) {
-        return findLoanPort.findById(id)
+    public Loan getLoanById(String productType, UUID id) {
+        return findLoanPort.findById(productType, id)
                 .orElseThrow(() -> new NotFoundException("loan.not.found", "The loan was not found."));
     }
 }

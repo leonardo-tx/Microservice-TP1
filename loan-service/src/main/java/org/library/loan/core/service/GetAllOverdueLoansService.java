@@ -14,7 +14,7 @@ public class GetAllOverdueLoansService implements GetAllOverdueLoansUseCase {
     private final FindAllOverdueLoansPort findAllOverdueLoansPort;
 
     @Override
-    public List<Loan> getAllOverdue() {
-        return findAllOverdueLoansPort.findAllOverdue();
+    public List<Loan> getAllOverdue(String productType) {
+        return findAllOverdueLoansPort.findAllOverdue(productType);
     }
 }

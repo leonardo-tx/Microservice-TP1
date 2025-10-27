@@ -11,5 +11,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class LoanCreateDTO {
     private String productId;
+    private String productType;
     private LocalDate dueDate;
 }

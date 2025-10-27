@@ -5,5 +5,5 @@ import org.library.loan.core.model.Loan;
 import java.util.List;
 
 public interface FindAllOverdueLoansPort {
-    List<Loan> findAllOverdue();
+    List<Loan> findAllOverdue(String productType);
 }

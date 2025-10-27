@@ -17,6 +17,8 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import static org.library.book.infra.adapter.loan.constant.LoanConstants.PRODUCT_TYPE_NAME;
+
 @Component
 @RequiredArgsConstructor
 public class LoanBookAdapter implements LoanBookPort {
@@ -25,11 +27,11 @@ public class LoanBookAdapter implements LoanBookPort {
 
     @Override
     public UUID loan(Book book, LocalDate dueDate) {
-        LoanCreateDTO loanCreateDTO = new LoanCreateDTO(book.getIsbn(), dueDate);
+        LoanCreateDTO loanCreateDTO = new LoanCreateDTO(book.getIsbn(), PRODUCT_TYPE_NAME, dueDate);
         try {
             try {
-                LoanServiceApiResponse<LoanViewDTO> loanViewDTO = loanServiceClient.createLoan(loanCreateDTO);
-                return loanViewDTO.getResult().getId();
+                LoanServiceApiResponse<LoanViewDTO> response = loanServiceClient.createLoan(loanCreateDTO);
+                return response.getResult().getId();
             } catch (FeignException e) {
                 LoanServiceApiResponse<Object> errorResponse = objectMapper.readValue(
                         e.contentUTF8(),

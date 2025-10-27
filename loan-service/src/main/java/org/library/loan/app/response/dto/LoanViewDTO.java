@@ -16,6 +16,7 @@ import java.util.UUID;
 public class LoanViewDTO {
     private UUID id;
     private String productId;
+    private String productType;
     private LocalDate createdDate;
     private LocalDate dueDate;
     private LocalDate returnedDate;

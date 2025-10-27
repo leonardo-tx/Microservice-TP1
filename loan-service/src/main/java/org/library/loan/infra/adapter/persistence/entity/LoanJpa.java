@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -16,9 +15,8 @@ import java.util.UUID;
 @Entity(name = "Loan")
 @Table(name = "loans")
 public class LoanJpa {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @EmbeddedId
+    private LoanJpaIdentifier id;
 
     @Column(name = "product_id", nullable = false)
     private String productId;

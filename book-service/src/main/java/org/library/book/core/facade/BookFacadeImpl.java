@@ -17,6 +17,7 @@ public class BookFacadeImpl implements BookFacade {
     private final GetAllBooksUseCase getAllBooksUseCase;
     private final GetBookUseCase getBookUseCase;
     private final LoanBookUseCase loanBookUseCase;
+    private final ReturnBookUseCase returnBookUseCase;
     private final UpdateBookUseCase updateBookUseCase;
 
     @Override
@@ -49,5 +50,10 @@ public class BookFacadeImpl implements BookFacade {
     public UUID loanByIsbn(String isbn, LocalDate dueDate) {
         Book book = getBookUseCase.getByIsbn(isbn);
         return loanBookUseCase.loan(book, dueDate);
+    }
+
+    @Override
+    public void returnByLoanId(UUID loanId) {
+        returnBookUseCase.returnBook(loanId);
     }
 }

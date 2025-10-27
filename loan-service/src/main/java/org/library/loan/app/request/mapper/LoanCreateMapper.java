@@ -7,6 +7,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoanCreateMapper {
     public Loan toModel(LoanCreateDTO entity) {
-        return new Loan(null, entity.getProductId(), null, entity.getDueDate(), null);
+        return new Loan(
+                null,
+                entity.getProductId(),
+                entity.getProductType(),
+                null,
+                entity.getDueDate(),
+                null
+        );
     }
 }

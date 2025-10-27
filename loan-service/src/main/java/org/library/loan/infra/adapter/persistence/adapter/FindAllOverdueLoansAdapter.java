@@ -17,9 +17,15 @@ public class FindAllOverdueLoansAdapter implements FindAllOverdueLoansPort {
     private final LoanMapper loanMapper;
 
     @Override
-    public List<Loan> findAllOverdue() {
+    public List<Loan> findAllOverdue(String productType) {
         LocalDate now = LocalDate.now();
-        return loanJpaRepository.findAllOverdue(now)
+        if (productType == null) {
+            return loanJpaRepository.findAllOverdue(now)
+                    .stream()
+                    .map(loanMapper::toModel)
+                    .toList();
+        }
+        return loanJpaRepository.findAllOverdueByProductType(productType, now)
                 .stream()
                 .map(loanMapper::toModel)
                 .toList();

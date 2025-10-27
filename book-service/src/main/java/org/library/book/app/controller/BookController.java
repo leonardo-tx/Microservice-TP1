@@ -62,6 +62,12 @@ public class BookController {
         return ApiResponse.success(loanId).createResponse(HttpStatus.CREATED);
     }
 
+    @PostMapping("/{loanId}/return")
+    public ResponseEntity<ApiResponse<Object>> returnBook(@PathVariable("loanId") UUID loanId) {
+        bookFacade.returnByLoanId(loanId);
+        return ApiResponse.success(null).createResponse(HttpStatus.OK);
+    }
+
     @PutMapping("/{isbn}")
     public ResponseEntity<ApiResponse<BookViewDTO>> updateBookByIsbn(
             @PathVariable("isbn") String isbn,

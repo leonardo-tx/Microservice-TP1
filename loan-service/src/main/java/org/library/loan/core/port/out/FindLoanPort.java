@@ -6,5 +6,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface FindLoanPort {
-    Optional<Loan> findById(UUID id);
+    Optional<Loan> findById(String productType, UUID id);
 }

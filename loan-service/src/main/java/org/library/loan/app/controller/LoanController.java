@@ -24,17 +24,20 @@ public class LoanController {
     private final LoanCreateMapper loanCreateMapper;
 
     @GetMapping("/overdue")
-    public ResponseEntity<ApiResponse<List<LoanViewDTO>>> getAllOverdue() {
-        List<LoanViewDTO> loansViews = loanFacade.getAllOverdue()
+    public ResponseEntity<ApiResponse<List<LoanViewDTO>>> getAllOverdue(@RequestParam("productType") String productType) {
+        List<LoanViewDTO> loansViews = loanFacade.getAllOverdue(productType)
                 .stream()
                 .map(loanViewMapper::toEntity)
                 .toList();
         return ApiResponse.success(loansViews).createResponse(HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<LoanViewDTO>> getLoanById(@PathVariable("id") UUID id) {
-        Loan loan = loanFacade.getLoanById(id);
+    @GetMapping("/{productType}/{id}")
+    public ResponseEntity<ApiResponse<LoanViewDTO>> getLoanById(
+            @PathVariable("productType") String productType,
+            @PathVariable("id") UUID id
+    ) {
+        Loan loan = loanFacade.getLoanById(productType, id);
         LoanViewDTO loanView = loanViewMapper.toEntity(loan);
 
         return ApiResponse.success(loanView).createResponse(HttpStatus.OK);
@@ -49,9 +52,12 @@ public class LoanController {
         return ApiResponse.success(loanView).createResponse(HttpStatus.CREATED);
     }
 
-    @PostMapping("/{id}/close")
-    public ResponseEntity<ApiResponse<LoanViewDTO>> closeLoan(@PathVariable("id") UUID id) {
-        Loan loan = loanFacade.closeById(id);
+    @PostMapping("/{productType}/{id}/close")
+    public ResponseEntity<ApiResponse<LoanViewDTO>> closeLoan(
+            @PathVariable("productType") String productType,
+            @PathVariable("id") UUID id
+    ) {
+        Loan loan = loanFacade.closeById(productType, id);
         LoanViewDTO loanView = loanViewMapper.toEntity(loan);
 
         return ApiResponse.success(loanView).createResponse(HttpStatus.OK);

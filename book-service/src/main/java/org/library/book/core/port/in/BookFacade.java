@@ -13,4 +13,5 @@ public interface BookFacade {
     List<Book> getAll();
     Book getByIsbn(String isbn);
     UUID loanByIsbn(String isbn, LocalDate dueDate);
+    void returnByLoanId(UUID loanId);
 }

@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.UUID;
 
 public interface LoanFacade {
-    Loan closeById(UUID id);
+    Loan closeById(String productType, UUID id);
     Loan create(Loan loan);
-    List<Loan> getAllOverdue();
-    Loan getLoanById(UUID id);
+    List<Loan> getAllOverdue(String productType);
+    Loan getLoanById(String productType, UUID id);
 }

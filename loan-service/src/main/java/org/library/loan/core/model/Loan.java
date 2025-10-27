@@ -10,13 +10,17 @@ import java.util.UUID;
 public final class Loan {
     private final UUID id;
     private final String productId;
+    private final String productType;
     private final LocalDate createdDate;
     private final LocalDate dueDate;
     private LocalDate returnedDate;
 
-    public Loan(UUID id, String productId, LocalDate createdDate, LocalDate dueDate, LocalDate returnedDate) {
+    public Loan(UUID id, String productId, String productType, LocalDate createdDate, LocalDate dueDate, LocalDate returnedDate) {
         if (productId == null) {
             throw new CoreException("loan.product.id.null", "The product id cannot be null.");
+        }
+        if (productType == null) {
+            throw new CoreException("loan.product.type.null", "The product type cannot be null.");
         }
         if (createdDate == null) {
             createdDate = LocalDate.now();
@@ -33,6 +37,7 @@ public final class Loan {
         this.id = id;
         this.createdDate = createdDate;
         this.productId = productId;
+        this.productType = productType;
         this.dueDate = dueDate;
         this.returnedDate = returnedDate;
     }

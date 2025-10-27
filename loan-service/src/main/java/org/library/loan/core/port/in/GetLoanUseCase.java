@@ -5,5 +5,5 @@ import org.library.loan.core.model.Loan;
 import java.util.UUID;
 
 public interface GetLoanUseCase {
-    Loan getLoanById(UUID id);
+    Loan getLoanById(String productType, UUID id);
 }

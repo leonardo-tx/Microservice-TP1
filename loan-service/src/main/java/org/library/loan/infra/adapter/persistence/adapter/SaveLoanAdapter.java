@@ -8,6 +8,8 @@ import org.library.loan.infra.adapter.persistence.mapper.LoanMapper;
 import org.library.loan.infra.adapter.persistence.repository.LoanJpaRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 @RequiredArgsConstructor
 public class SaveLoanAdapter implements SaveLoanPort {
@@ -17,8 +19,10 @@ public class SaveLoanAdapter implements SaveLoanPort {
     @Override
     public Loan save(Loan loan) {
         LoanJpa entity = loanMapper.toEntity(loan);
+        if (entity.getId().getId() == null) {
+            entity.getId().setId(UUID.randomUUID());
+        }
         LoanJpa savedEntity = loanJpaRepository.save(entity);
-
         return loanMapper.toModel(savedEntity);
     }
 }

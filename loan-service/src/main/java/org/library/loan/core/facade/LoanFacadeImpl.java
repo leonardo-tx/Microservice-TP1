@@ -17,8 +17,8 @@ public class LoanFacadeImpl implements LoanFacade {
     private final GetLoanUseCase getLoanUseCase;
 
     @Override
-    public Loan closeById(UUID id) {
-        Loan loan = getLoanUseCase.getLoanById(id);
+    public Loan closeById(String productType, UUID id) {
+        Loan loan = getLoanUseCase.getLoanById(productType, id);
         return closeLoanUseCase.close(loan);
     }
 
@@ -28,12 +28,12 @@ public class LoanFacadeImpl implements LoanFacade {
     }
 
     @Override
-    public List<Loan> getAllOverdue() {
-        return getAllOverdueLoansUseCase.getAllOverdue();
+    public List<Loan> getAllOverdue(String productType) {
+        return getAllOverdueLoansUseCase.getAllOverdue(productType);
     }
 
     @Override
-    public Loan getLoanById(UUID id) {
-        return getLoanUseCase.getLoanById(id);
+    public Loan getLoanById(String productType, UUID id) {
+        return getLoanUseCase.getLoanById(productType, id);
     }
 }
